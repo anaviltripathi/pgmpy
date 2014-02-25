@@ -1,0 +1,24 @@
+language: python
+python:
+    - "3.2"
+virtualenv:
+    system_site_packages: true
+before_install:
+    - sudo apt-get build-dep -qq python3-numpy
+    - sudo apt-get build-dep -qq python3-scipy
+    - sudo apt-get install -y aptitude
+    - sudo aptitude install -y python3-setuptools
+    - sudo easy_install3 pip
+    - pip-3.2 install numpy --upgrade
+install:
+    - "pip-3.2 install networkx"
+    - "pip-3.2 install numpy --upgrade"
+    - "pip-3.2 install scipy --upgrade"
+    - "pip-3.2 install nose"
+    - "pip-3.2 install coveralls"
+script: nosetests --with-coverage --cover-package=pgmpy/src
+after_success:
+    coveralls
+notifications:
+    email:
+        - pgmpy@googlegroups.com
